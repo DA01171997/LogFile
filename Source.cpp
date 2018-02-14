@@ -10,7 +10,7 @@ class Log {
 private:
 	fstream logFile;
 	string name;
-
+	time_t currentTimeDate;
 public:
 	Log() {}										//default constructor
 	Log(std::string name) :name(name) {}
@@ -58,10 +58,9 @@ public:
 			getline(logFile, line);
 		}
 	}
-	void writeToFile(string input, string timeDate) {				//write input at the end of file
+	void writeToFile(string input) {				//write input at the end of file
 		logFile.seekg(0, logFile.end);					//jump to end
-		timeDate.erase(remove(timeDate.begin(), timeDate.end(), '\n'), timeDate.end());
-		logFile << timeDate << " " << input << endl;						//write
+		logFile << setTime() << " " << input << endl;						//write
 	}
 	void flushLog() {
 		logFile.flush();
@@ -75,8 +74,11 @@ public:
 			std::cout << "* " << name << " * MYLOG DIDN'T NOT GET OPENED" << std::endl;
 		}
 	}
-	void setTime() {
-
+	string setTime() {
+		time(&currentTimeDate);
+		string timeTime = ctime(&currentTimeDate);
+		timeTime.erase(remove(timeTime.begin(), timeTime.end(), '\n'), timeTime.end());
+		return timeTime;
 	}
 };
 
@@ -87,7 +89,7 @@ int main() {
 	time(&currentTimeDate);
 	test->openExistingFile("Text.txt");
 
-	test->writeToFile("TEST8", ctime(&currentTimeDate));
+	test->writeToFile("TEST9");
 
 
 	//test->readLine(5);
