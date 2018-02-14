@@ -75,11 +75,12 @@ public:
 		}
 	}
 	string setTime() {
-		/*time(&currentTimeDate);
-		string timeTime = ctime(&currentTimeDate);
+		time(&currentTimeDate);
+		char timeStr[26];
+		ctime_s(timeStr, sizeof timeStr, &currentTimeDate);
+		string timeTime(timeStr);
 		timeTime.erase(remove(timeTime.begin(), timeTime.end(), '\n'), timeTime.end());
-		return timeTime;*/
-		return "ASD";
+		return timeTime;
 	}
 };
 
