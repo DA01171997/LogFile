@@ -9,7 +9,7 @@ using namespace std;
 class Log {
 private:
 	fstream logFile;
-	string name;
+	string name = "";
 	time_t currentTimeDate;
 public:
 	Log() {}										//default constructor
@@ -18,6 +18,7 @@ public:
 		logFile.close();
 	}
 	void openExistingFile(string name) {			//opens existing file given file name
+		this->name = name;
 		try {
 			logFile.open(name);
 			if (!logFile) {
