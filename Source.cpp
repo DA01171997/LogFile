@@ -10,11 +10,21 @@ private:
 public: 
 	Log(){}
 	~Log() {										//destructor
-		logFile.close();
+		closeMyLog();
 	}
 	void openExistingFile(string name) {			//opens existing file given file name
-		//test if file is here
-		logFile.open(name);
+		try {	
+			logFile.open(name);
+			if (!logFile) {
+				throw std::runtime_error("* "+ name +" *CAN'T OPEN INFILE OR INFILE DOESN'T EXISTS");
+			}
+			else {
+				std::cout << "* "<<name << " * INPUT MYLOG IS OPENED" << std::endl;
+			}
+		}
+			catch (std::runtime_error &e) {
+			std::cout << e.what() << std::endl;
+		}
 	}
 	void openNewFile(string name) {					//opens new file with name
 		logFile.open(name);
@@ -49,6 +59,15 @@ public:
 	}
 	void flushLog() {
 		logFile.flush();
+	}
+	void closeMyLog() {
+		if (logFile.is_open()) {
+			logFile.close();
+			std::cout << "* " << name << " * LOGFILE IS CLOSED" << std::endl;
+		}
+		else {
+			std::cout << "* " << name << " * MYLOG DIDN'T NOT GET OPENED" << std::endl;
+		}
 	}
 };
 
