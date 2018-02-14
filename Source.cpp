@@ -2,27 +2,32 @@
 #include <string>
 #include <fstream>
 #include <istream>
+#include <time.h>
+#include <algorithm>
 using namespace std;
 
 class Log {
 private:
 	fstream logFile;
-public: 
-	Log(){}
+	string name;
+
+public:
+	Log() {}										//default constructor
+	Log(std::string name) :name(name) {}
 	~Log() {										//destructor
-		closeMyLog();
+		logFile.close();
 	}
 	void openExistingFile(string name) {			//opens existing file given file name
-		try {	
+		try {
 			logFile.open(name);
 			if (!logFile) {
-				throw std::runtime_error("* "+ name +" *CAN'T OPEN INFILE OR INFILE DOESN'T EXISTS");
+				throw std::runtime_error("* " + name + " *CAN'T OPEN INFILE OR INFILE DOESN'T EXISTS");
 			}
 			else {
-				std::cout << "* "<<name << " * INPUT MYLOG IS OPENED" << std::endl;
+				std::cout << "* " << name << " * INPUT MYLOG IS OPENED" << std::endl;
 			}
 		}
-			catch (std::runtime_error &e) {
+		catch (std::runtime_error &e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -37,7 +42,7 @@ public:
 			currentLine++;
 			getline(logFile, line);
 		}
-		cout << currentLine<< ": "<<line<<endl;
+		cout << currentLine << ": " << line << endl;
 	}
 	void readLines(int from, int to) {				//read lines from given numbers. Inclusive
 		string line;
@@ -53,9 +58,10 @@ public:
 			getline(logFile, line);
 		}
 	}
-	void writeToFile(string input, string date, string time) {				//write input at the end of file
+	void writeToFile(string input, string timeDate) {				//write input at the end of file
 		logFile.seekg(0, logFile.end);					//jump to end
-		logFile << date<<" "<<time<< " "<< input << endl;						//write
+		timeDate.erase(remove(timeDate.begin(), timeDate.end(), '\n'), timeDate.end());
+		logFile << timeDate << " " << input << endl;						//write
 	}
 	void flushLog() {
 		logFile.flush();
@@ -69,14 +75,20 @@ public:
 			std::cout << "* " << name << " * MYLOG DIDN'T NOT GET OPENED" << std::endl;
 		}
 	}
+	void setTime() {
+
+	}
 };
 
 
 int main() {
 	Log *test = new Log();
+	time_t currentTimeDate;
+	time(&currentTimeDate);
 	test->openExistingFile("Text.txt");
-	test->writeToFile("TEST8", "2/13/2018", "5:23");
-	
+
+	test->writeToFile("TEST8", ctime(&currentTimeDate));
+
 
 	//test->readLine(5);
 
