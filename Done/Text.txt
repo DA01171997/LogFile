@@ -1,0 +1,6 @@
+Line	Time		Date		FunctionName	Type	Description
+13	14:05:58	Feb 15 2018	printASD() 	0	Worked
+13	14:05:58	Feb 15 2018	printASD() 	0	Worked
+13	14:05:58	Feb 15 2018	printASD() 	0	Worked
+18	14:05:58	Feb 15 2018	failFunc() 	1	Failed
+

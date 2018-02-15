@@ -1,0 +1,4 @@
+Code	Error
+0	Worked
+1	Failed
+2	Here
