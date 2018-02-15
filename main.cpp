@@ -42,6 +42,19 @@ public:
 		logFile << __func__ << " " << __TIME__ << " " << __DATE__ << " " << input << endl;
 		fflush(stdout);
 	}
+	void readLine(int number) {						//print current line
+		string line;
+		int currentLine = 0;
+		logFile.seekg(0, logFile.beg);					//jump to beginning
+		for (int i = 0; i < number; i++) {				//loop through lines until number
+			currentLine++;
+			getline(logFile, line);
+		}
+		cout << line << endl;
+	}
+	void manFlush() {
+		fflush(stdout);
+	}
 private:
 	string name;
 	fstream logFile;
@@ -60,10 +73,15 @@ int main() {
 
 	cout << endl << "Checking write using test function, ignore the ASD" << endl;
 	printASD(successLog);
+	printASD(successLog);
+	printASD(successLog);
+	cout << "Text.txt has been updated" << endl;
 
-
-
-	successLog.writeLine(__LINE__, "ASDASD", "function prints ASD");
+	cout << endl << "Checking readLine(1)" << endl;
+	successLog.readLine(1);
+	successLog.readLine(2);
+	successLog.readLine(3);
+	cout << endl;
 
 	system("pause");
 }
