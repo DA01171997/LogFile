@@ -55,6 +55,7 @@ void printASD(myLog &a) {
 int main() {
 	cout << "Checking openFile()" << endl;
 	myLog successLog("Text.txt");
+	successLog.openFile("Text.txt");
 	myLog failLog("DoesntExist.txt");
 
 	cout << endl << "Checking write using test function, ignore the ASD" << endl;
