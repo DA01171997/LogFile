@@ -9,18 +9,18 @@ class myLog {
 
 public:
 	myLog() {}
-	myLog(string name) :name(name){}
-	~myLog() {closeMylog();}
-	
+	myLog(string name) :name(name) {}
+	~myLog() { closeMylog(); }
+
 	bool openFile(string name) {
-		this ->name = name;
+		this->name = name;
 		try {
 			logFile.open(name.c_str());
-			if(!logFile) {
-				throw std::runtime_error("* "+ name +" *CAN'T OPEN INFILE OR INFILE DOESN'T EXISTS");
+			if (!logFile) {
+				throw std::runtime_error("* " + name + " *CAN'T OPEN INFILE OR INFILE DOESN'T EXISTS");
 			}
 			else {
-				std::cout << "* "<<name << " * INPUT MYLOG IS OPENED" << std::endl;
+				std::cout << "* " << name << " * INPUT MYLOG IS OPENED" << std::endl;
 				return true;
 			}
 		}
@@ -44,21 +44,25 @@ public:
 	}
 private:
 	string name;
-	fstream logFile;	
+	fstream logFile;
 };
 
-void printASD(fstream a){
-	cout<< "ASD" << endl;
+void printASD(myLog &a) {
+	cout << "ASD" << endl;
 	a.writeLine(__LINE__, __func__, "function prints ASD");
 }
 
-int main(){
-	cout<< "Checking openFile()" <<endl;
-	myLog successLog = new myLog("Text.txt");
-	myLog failLog = new myLog("DoesntExist.txt");
-	
-	cout<< endl << "Checking write using test function, ignore the ASD" << endl;
+int main() {
+	cout << "Checking openFile()" << endl;
+	myLog successLog("Text.txt");
+	myLog failLog("DoesntExist.txt");
+
+	cout << endl << "Checking write using test function, ignore the ASD" << endl;
 	printASD(successLog);
-	
+
+
+
+	successLog.writeLine(__LINE__, "ASDASD", "function prints ASD");
+
 	system("pause");
 }
