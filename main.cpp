@@ -8,9 +8,9 @@ using namespace std;
 class myLog {
 
 public:
-	myLog() { errorNumber = 0; }
+	myLog() { CodeNumber = 0; }
 	myLog(string name) :name(name) {
-		errorNumber = 0;
+		CodeNumber = 0;
 	}
 	~myLog() { closeMylog(); }
 
@@ -60,7 +60,7 @@ public:
 		}
 	}
 	void writeLine(int LineNumber, string functionName) {						//write to log
-		logFile << LineNumber << "\t" << __TIME__ << "\t" << __DATE__ << "\t\t" << functionName << "() \t\t" << getType(errorNumber) << endl;
+		logFile << LineNumber << "\t" << __TIME__ << "\t" << __DATE__ << "\t\t" << functionName << "() \t\t" << getType(CodeNumber) << endl;
 		fflush(stdout);
 	}
 	void readLine(int number) {						//print line, given line number
@@ -82,12 +82,12 @@ public:
 		}
 		return line;
 	}
-	void setErrNumber(int i) {
-		errorNumber = i;
+	void setCodeNumber(int i) {
+		CodeNumber = i;
 	}
 private:
 	string name;
-	int errorNumber;
+	int CodeNumber;
 	fstream logFile;
 	fstream configFile;
 };
@@ -98,7 +98,7 @@ void printASD(myLog &a) {
 }
 void failFunc(myLog &a) {
 	cout << "This function should fail" << endl;
-	a.setErrNumber(1);
+	a.setCodeNumber(1);
 	a.writeLine(__LINE__, __func__);
 }
 
@@ -126,5 +126,5 @@ int main() {
 
 	cout << endl;
 
-	//system("pause");
+	system("pause");
 }
