@@ -21,6 +21,7 @@ public:
 			}
 			else {
 				std::cout << "* " << name << " * INPUT MYLOG IS OPENED" << std::endl;
+				logFile << "Line\t" << "Time\t\t" << "Date\t\t" << "FunctionName\t" << "Description\n";
 				return true;
 			}
 		}
@@ -38,11 +39,11 @@ public:
 			std::cout << "* " << name << " * MYLOG DIDN'T NOT GET OPENED" << std::endl;
 		}
 	}
-	void writeLine(int LineNumber, string functionName, string input) {
-		logFile << __func__ << " " << __TIME__ << " " << __DATE__ << " " << input << endl;
+	void writeLine(int LineNumber, string functionName, string input) {						//write to log
+		logFile << LineNumber << "\t" << __TIME__ << "\t" << __DATE__ << "\t" << functionName << "() \t" << input << endl;
 		fflush(stdout);
 	}
-	void readLine(int number) {						//print current line
+	void readLine(int number) {						//print line, given line number
 		string line;
 		int currentLine = 0;
 		logFile.seekg(0, logFile.beg);					//jump to beginning
@@ -50,9 +51,9 @@ public:
 			currentLine++;
 			getline(logFile, line);
 		}
-		cout << line << endl;
+		cout << line << endl;							//print line
 	}
-	void manFlush() {
+	void manFlush() {								//manual flush
 		fflush(stdout);
 	}
 private:
@@ -61,7 +62,7 @@ private:
 };
 
 void printASD(myLog &a) {
-	cout << "ASD" << endl;
+	cout << "ASD ";
 	a.writeLine(__LINE__, __func__, "function prints ASD");
 }
 
@@ -75,12 +76,13 @@ int main() {
 	printASD(successLog);
 	printASD(successLog);
 	printASD(successLog);
-	cout << "Text.txt has been updated" << endl;
+	cout << endl << "Text.txt has been updated" << endl;
 
-	cout << endl << "Checking readLine(1)" << endl;
+	cout << endl << "Checking readLine()" << endl;
 	successLog.readLine(1);
 	successLog.readLine(2);
 	successLog.readLine(3);
+	successLog.readLine(4);
 	cout << endl;
 
 	system("pause");
